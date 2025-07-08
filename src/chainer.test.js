@@ -4,6 +4,7 @@ const { chainer } = require('./chainer');
 
 let fn1, fn2, fn3, fn4;
 let args;
+const callOrder = [];
 
 beforeEach(() => {
   [fn1, fn2, fn3, fn4] = [
@@ -43,15 +44,10 @@ it('should be declared', () => {
   expect(chainer).toBeInstanceOf(Function);
 });
 
-it('call all functions', () => {
+it('call all functions and have been called in order', () => {
   chainer(args)(3);
 
   args.forEach(fn => expect(fn).toHaveBeenCalled());
-});
-
-const callOrder = [];
-
-it('should have been called in order', () => {
   expect(callOrder).toEqual([1, 2, 3, 4]);
 });
 
